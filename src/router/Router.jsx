@@ -3,7 +3,7 @@ import Home from '../pages/Home.jsx'
 import Product from '../pages/Product.jsx'
 import Cart from '../pages/Cart.jsx'
 
-export const createRouter = createBrowserRouter([
+export const router = createBrowserRouter([
     {
         path: "/",
         element: <Home />,

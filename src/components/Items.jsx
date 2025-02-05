@@ -21,7 +21,7 @@ const Items = ({ product }) => {
         <div className="p-4 bg-white shadow-md rounded-lg transition hover:shadow-lg">
             {/* Product Link */}
             <Link
-                to={`/product/${id}`}
+                to={`/products/${id}`}
                 role="button"
                 className="block hover:scale-105 transition duration-300"
             >
@@ -61,7 +61,7 @@ const Items = ({ product }) => {
                     className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
                 >
                     <img src={bolt} alt="bolt-icon" className="w-5 h-5" />
-                    <span>Abhi Kharide</span>
+                    <span>Buy Now</span>
                 </Link>
 
                 {/* Add to Cart Button */}
