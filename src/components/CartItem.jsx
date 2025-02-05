@@ -48,7 +48,7 @@ function CartItem({ product, quantity }) {
             </div>
 
             {/* Product Description */}
-            <p className="text-sm text-gray-600 mt-3 line-clamp-3">{product.description}</p>
+            <p className="text-sm text-gray-600 mt-3 line-clamp-3">{`${product.description.slice(0,75,)}...`}</p>
 
             {/* Quantity Controls */}
             <div className="flex items-center justify-center mt-4 space-x-4">
