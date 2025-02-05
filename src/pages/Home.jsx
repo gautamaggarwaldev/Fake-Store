@@ -2,7 +2,7 @@
 import React, { useContext, useId } from 'react'
 import { AppContext } from '../App.jsx'
 import Header from '../components/Header.jsx';
-import Item from '../components/Item.jsx';
+import Items from '../components/Items.jsx';
 import ItemSkeleton from '../components/ItemSkeleton.jsx';
 
 const categories = [
@@ -42,7 +42,7 @@ function Home() {
                                             .filter((product) => product.category === currentCategory)
                                             .map((currentProduct) => {
                                                 return (
-                                                    <Item key={currentProduct.id} product={currentProduct} />
+                                                    <Items key={currentProduct.id} product={currentProduct} />
                                                 );
                                             })
                                     ) : (
