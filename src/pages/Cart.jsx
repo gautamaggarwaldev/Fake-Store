@@ -75,8 +75,11 @@ function Cart() {
 
                     {/* Checkout Button */}
                     <button
-                        disabled
-                        className="w-full mt-4 bg-gray-400 text-white flex items-center justify-center gap-2 py-3 rounded-lg cursor-not-allowed"
+                        disabled={appContext.cart?.products?.length === 0}
+                        className={`w-full mt-4 flex items-center justify-center gap-2 py-3 rounded-lg transition ${appContext.cart?.products?.length === 0
+                            ? "bg-gray-400 text-white cursor-not-allowed"
+                            : "bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
+                            }`}
                     >
                         <img src={plan} alt="checkout" className="w-5 h-5" />
                         <span>Checkout</span>
