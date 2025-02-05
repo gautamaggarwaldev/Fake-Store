@@ -4,6 +4,7 @@ import { AppDispatchContext } from '../App.jsx';
 import bolt from '../assets/bolt.svg';
 import star from '../assets/star.svg';
 import addCart from '../assets/addCart.svg';
+import { Link } from 'react-router-dom';
 
 const Items = ({ product }) => {
     const { id, title, price,rating, image } = product;
