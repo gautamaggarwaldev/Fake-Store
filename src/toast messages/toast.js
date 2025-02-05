@@ -5,7 +5,7 @@ export const notify = (type, message) => {
         case "success":
             toast.success(message, {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -18,7 +18,7 @@ export const notify = (type, message) => {
         case "error":
             toast.error(message, {
                 position: "top-center",
-                autoClose: 5000,
+                autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
