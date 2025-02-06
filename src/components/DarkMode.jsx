@@ -19,7 +19,7 @@ function DarkMode() {
     return (
         <button
             onClick={() => setDarkMode(!darkMode)}
-            className="p-2 rounded-full bg-gray-200 dark:bg-gray-800 transition"
+            className="p-2 mr-2 rounded-full bg-gray-200 dark:bg-gray-800 transition"
         >
             {darkMode ? <Sun className="text-yellow-500" /> : <Moon className="text-gray-300" />}
         </button>
