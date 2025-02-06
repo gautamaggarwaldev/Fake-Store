@@ -82,7 +82,7 @@ function Cart() {
                             }`}
                     >
                         <img src={plan} alt="checkout" className="w-5 h-5" />
-                        <span>Checkout</span>
+                        <Link to="/payment" role='button'>Checkout</Link>
                     </button>
                 </section>
             </main>
