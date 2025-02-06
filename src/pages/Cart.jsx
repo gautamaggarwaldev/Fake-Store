@@ -6,10 +6,14 @@ import { AppContext } from '../App.jsx';
 import Header from '../components/Header.jsx';
 import { Link } from 'react-router-dom';
 import CartItem from '../components/CartItem.jsx';
+import ProgressBar from '../components/ProgressBar.jsx'; // Importing Progress Bar
 
 function Cart() {
 
     const appContext = useContext(AppContext);
+
+    const rewardThreshold = 1000; // Set a spending goal for rewards
+    const progress = (appContext.cart.subtotal / rewardThreshold) * 100;
 
     return (
         <>
@@ -73,17 +77,25 @@ function Cart() {
                         </li>
                     </ul>
 
+                    {/* Progress Bar for Rewards */}
+                    <div className="mt-4">
+                        <p className="text-sm text-gray-700">Spend ₹{rewardThreshold - appContext.cart.subtotal} more to earn 50 bonus points!</p>
+                        <ProgressBar progress={Math.min(progress, 100)} />
+                    </div>
+
                     {/* Checkout Button */}
-                    <button
-                        disabled={appContext.cart?.products?.length === 0}
-                        className={`w-full mt-4 flex items-center justify-center gap-2 py-3 rounded-lg transition ${appContext.cart?.products?.length === 0
-                            ? "bg-gray-400 text-white cursor-not-allowed"
-                            : "bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
-                            }`}
-                    >
-                        <img src={plan} alt="checkout" className="w-5 h-5" />
-                        <Link to="/payment" role='button'>Checkout</Link>
-                    </button>
+                    <Link to="/payment-method">
+                        <button
+                            disabled={appContext.cart?.products?.length === 0}
+                            className={`w-full mt-4 flex items-center justify-center gap-2 py-3 rounded-lg transition ${appContext.cart?.products?.length === 0
+                                ? "bg-gray-400 text-white cursor-not-allowed"
+                                : "bg-blue-500 hover:bg-blue-600 text-white cursor-pointer"
+                                }`}
+                        >
+                            <img src={plan} alt="checkout" className="w-5 h-5" />
+                            Checkout
+                        </button>
+                    </Link>
                 </section>
             </main>
         </>
