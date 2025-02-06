@@ -1,16 +1,17 @@
-import { createContext, useEffect, useReducer } from 'react'
+import { createContext, useEffect, useReducer } from 'react';
 import reducer from './utils/reducer.js';
 import { RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { router } from './router/router.jsx';
 import "react-toastify/dist/ReactToastify.css";
 import api from "./api/index.js";
-import { notify } from './toast messages/toast.js'
+import { notify } from './toast messages/toast.js';
+import { PointsProvider } from "./context/PointsContext";  // Import Points Provider
 
 export const AppDispatchContext = createContext(null);
 export const AppContext = createContext(null);
 
-const initialAppContext ={
+const initialAppContext = {
   products: [],
   cart: {
     products: [],
@@ -20,16 +21,15 @@ const initialAppContext ={
 };
 
 function App() {
-
   const [appContext, appDispatch] = useReducer(reducer, initialAppContext);
 
   useEffect(() => {
-    //fetch cart
+    // Fetch cart
     const initApp = async () => {
-      appDispatch({type: "LOADING", payload: true});
+      appDispatch({ type: "LOADING", payload: true });
 
       try {
-        if(!localStorage.getItem("cartData")) {
+        if (!localStorage.getItem("cartData")) {
           const cartData = await api.fetchUserCart(1);
           const products = await api.fetchProducts();
 
@@ -41,37 +41,35 @@ function App() {
             },
           });
           localStorage.setItem("cartData", JSON.stringify(cartData));
-        }
-        else {
+        } else {
           const cartData = JSON.parse(localStorage.getItem("cartData"));
           const products = await api.fetchProducts();
           appDispatch({
             type: "INIT_APP",
             payload: {
-              cartData: cartData, 
+              cartData: cartData,
               products: products,
             },
           });
         }
-      }
-      catch(error) {
+      } catch (error) {
         console.log(error);
         notify("error", "Something went wrong");
       }
-      appDispatch({type: "LOADING", payload: false});
+      appDispatch({ type: "LOADING", payload: false });
     };
     initApp();
-
   }, []);
 
-
   return (
-    <AppContext.Provider value={appContext}>
-      <AppDispatchContext.Provider value={appDispatch}>
-        <RouterProvider router={router} />
-      </AppDispatchContext.Provider>
-      <ToastContainer />
-    </AppContext.Provider>
+    <PointsProvider> {/* Wrap everything inside PointsProvider */}
+      <AppContext.Provider value={appContext}>
+        <AppDispatchContext.Provider value={appDispatch}>
+          <RouterProvider router={router} />
+        </AppDispatchContext.Provider>
+        <ToastContainer />
+      </AppContext.Provider>
+    </PointsProvider>
   );
 }
 
