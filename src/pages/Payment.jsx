@@ -1,11 +1,13 @@
 import { useContext, useState } from "react";
 import { AppContext } from "../App";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Header from "../components/Header";
 import backButton from "../assets/backButton.svg";
+import { usePoints } from "../context/PointsContext";  // Import Points Context
 
 function Payment() {
     const appContext = useContext(AppContext);
+    const { addPoints } = usePoints(); // Access addPoints function
     const [cardDetails, setCardDetails] = useState({
         name: "",
         cardNumber: "",
@@ -14,6 +16,11 @@ function Payment() {
     });
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
+    
+    // Get the selected payment method from the URL query params
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const paymentMethod = queryParams.get('method'); // Get selected payment method
 
     // Handle form input changes
     const handleChange = (e) => {
@@ -34,7 +41,18 @@ function Payment() {
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
         } else {
-            navigate("/loading"); // Redirect to the Loading page
+            navigate("/loading"); // Redirect to Loading Page
+
+            // Simulate delay, then add points and go to success page
+            setTimeout(() => {
+                addPoints(100);  // Add 100 points on purchase
+                navigate("/payment-success");
+
+                // Navigate to Spinwheel after success page
+                // setTimeout(() => {
+                //     navigate("/spinwheel");
+                // }, 1000); // Delay before redirecting to spinwheel
+            }, 3000);
         }
     };
 
@@ -44,17 +62,19 @@ function Payment() {
             <main className="container mx-auto px-4 py-6">
                 {/* Back Button */}
                 <div className="flex items-center gap-4 mb-6">
-                    <Link to="/" className="p-2 bg-gray-200 rounded-full hover:bg-gray-300 transition">
+                    <Link to="/payment-method" className="p-2 bg-gray-200 rounded-full hover:bg-gray-300 transition">
                         <img src={backButton} alt="back-btn" className="w-6 h-6" />
                     </Link>
-                    <h1 className="text-2xl font-semibold text-gray-800">Payment</h1>
+                    <h1 className="text-2xl font-semibold text-gray-800">Payment ({paymentMethod})</h1>
                 </div>
 
                 {/* Payment Section */}
                 <div className="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto">
                     <h2 className="text-xl font-semibold mb-4 text-gray-700">Payment Details</h2>
 
-                    {/* Card Details Form */}
+                    {/* You can customize the form based on paymentMethod */}
+                    {/* For example, show different fields or instructions depending on the selected method */}
+                    
                     <form onSubmit={handlePayment} className="space-y-4">
                         <div>
                             <label className="block text-gray-600 text-sm mb-1">Cardholder Name</label>

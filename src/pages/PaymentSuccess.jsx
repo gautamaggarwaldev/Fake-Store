@@ -54,12 +54,20 @@ function PaymentSuccess() {
                 </div>
 
                 {/* Continue Shopping Button */}
-                <Link
-                    to="/"
-                    className="mt-6 inline-block bg-blue-500 hover:bg-blue-600 text-white font-medium px-6 py-3 rounded-lg transition"
-                >
-                    Continue Shopping
-                </Link>
+                <div className="flex gap-4">
+                    <Link
+                        to="/"
+                        className="mt-6 inline-block bg-blue-500 hover:bg-blue-600 text-white font-medium px-6 py-3 rounded-lg transition"
+                    >
+                        Continue Shopping
+                    </Link>
+                    <Link
+                        to="/spinwheel"
+                        className="mt-6 inline-block bg-blue-500 hover:bg-blue-600 text-white font-medium px-6 py-3 rounded-lg transition"
+                    >
+                        Spin a Wheel
+                    </Link>
+                </div>
             </motion.div>
         </div>
     );
