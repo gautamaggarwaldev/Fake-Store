@@ -1,18 +1,24 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useContext, useId } from 'react'
-import { AppContext } from '../App.jsx'
+import React, { useContext, useId } from 'react';
+import { AppContext } from '../App.jsx';
 import Header from '../components/Header.jsx';
 import Items from '../components/Items.jsx';
 import ItemSkeleton from '../components/ItemSkeleton.jsx';
+import AdComponent from '../components/AdComponent.jsx'; // ✅ Import Ad Component
 
 const categories = [
     "men's clothing",
     "electronics",
     "women's clothing",
     "jewelery",
-]
-function Home() {
+];
 
+// Array of different image URLs for ads
+const adImages = [
+    "/assets/22.jpg",
+];
+
+function Home() {
     const appContext = useContext(AppContext);
 
     return (
@@ -40,9 +46,16 @@ function Home() {
                                     {appContext.products?.length !== 0 ? (
                                         Object.values(appContext.products)
                                             .filter((product) => product.category === currentCategory)
-                                            .map((currentProduct) => {
+                                            .map((currentProduct, index) => {
                                                 return (
-                                                    <Items key={currentProduct.id} product={currentProduct} />
+                                                    <React.Fragment key={currentProduct.id}>
+                                                        <Items product={currentProduct} />
+                                                        
+                                                        {/* Insert an ad after every 4 products */}
+                                                        {index % 4 === 3 && (
+                                                            <AdComponent image={adImages[Math.floor(index / 4) % adImages.length]} />
+                                                        )}
+                                                    </React.Fragment>
                                                 );
                                             })
                                     ) : (
@@ -60,4 +73,3 @@ function Home() {
 };
 
 export default Home;
-
