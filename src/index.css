@@ -13,3 +13,8 @@
 .animate-spin {
     animation: spin 1s linear infinite;
 }
+
+html.dark {
+    background-color: #1a202c;
+    color: white;
+  }

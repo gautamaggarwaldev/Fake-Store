@@ -1,5 +1,6 @@
 import viewCart from '../assets/viewCart.svg';
 import { Link } from 'react-router-dom';
+import DarkMode from './DarkMode';
 
 function Header() {
     return (
@@ -11,11 +12,12 @@ function Header() {
           </div>
           <Link
             to="/cart"
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition duration-300"
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition duration-300 ml-270"
           >
             <img src={viewCart} alt="cart-icon" className="w-6 h-6" />
             <span>View Cart</span>
           </Link>
+          <DarkMode />
         </header>
     );
 };
